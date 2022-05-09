@@ -7,9 +7,7 @@ import javax.sql.DataSource;
 
 public class MyDataSource {
     public static DataSource getMyMariaDBDataSource(){
-
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
-
 
         String host = MyConfig.getInstance().getDBHost();
         String port = MyConfig.getInstance().getDBPort();
@@ -24,5 +22,4 @@ public class MyDataSource {
 
         return mysqlDataSource;
     }
-
 }

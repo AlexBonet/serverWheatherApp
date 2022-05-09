@@ -24,19 +24,20 @@ public class CityController {
         return service.getAll();
     }
 
-    public static Result<Ciudad> getCiudad(Request req, Response res){
-        // http://localhost:4567/Ciudad?dni=1111
-        String nom = req.queryParams("nom");
-        logger.info("Get Ciudad with nom= " + nom);
-        Result result = service.get(nom);
-        if(result instanceof Result.Success)
-            res.status(200);
-        else {
-            Result.Error error = (Result.Error)result;
-            res.status(error.getCode());
-        }
-        return result;
-    }
+//GET
+//    public static Result<Ciudad> getCiudad(Request req, Response res){
+//        // http://localhost:4567/Ciudad?dni=1111
+//        String nom = req.queryParams("nom");
+//        logger.info("Get Ciudad with nom= " + nom);
+//        Result result = service.get(nom);
+//        if(result instanceof Result.Success)
+//            res.status(200);
+//        else {
+//            Result.Error error = (Result.Error)result;
+//            res.status(error.getCode());
+//        }
+//        return result;
+//    }
 
     public static Result<Ciudad> addCiudad(Request request, Response res) {
         logger.info("Add new Ciudad");

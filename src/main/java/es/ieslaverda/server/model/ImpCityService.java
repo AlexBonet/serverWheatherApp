@@ -36,8 +36,26 @@ public class ImpCityService implements ICityService{
         }
         return ciudadList;
     }
-
     @Override
+    public Result<Ciudad> add(Ciudad c) {
+        DataSource ds = MyDataSource.getMyMariaDBDataSource();
+
+        try(Connection con = ds.getConnection();
+            Statement statement = con.createStatement();) {
+            String sql = "INSERT INTO " +
+                    "ciudad VALUES ('"+c.getNom()+"','"+c.getLat()+"','"+c.getLon()+"')";
+
+            int count = statement.executeUpdate(sql);
+            if(count==1)
+                return new Result.Success<>(c);
+            else
+                return new Result.Error(404,"No se ha podido añadir la ciudad");
+
+        } catch (SQLException throwables) {
+            return new Result.Error(404,throwables.getMessage());
+        }
+    }
+
     public Result<Ciudad> get(String nom) {
         DataSource dataSource = MyDataSource.getMyMariaDBDataSource();
 
@@ -66,10 +84,7 @@ public class ImpCityService implements ICityService{
             return new Result.Error(1,e.getMessage());
         }
     }
-
-//TODO delete en Result<Ciudad>
-
-//    @Override
+    //    @Override
 //    public Result<Ciudad> delete(String nom) {
 //        DataSource ds = MyDataSource.getMyMariaDBDataSource();
 //        int count = 0 ;
@@ -88,28 +103,9 @@ public class ImpCityService implements ICityService{
 //        }
 //        return Result.Success.Error;
 //    }
-    @Override
     public Result<Ciudad> delete(String nom) {
         return null;
     }
 
-    @Override
-    public Result<Ciudad> add(Ciudad c) {
-        DataSource ds = MyDataSource.getMyMariaDBDataSource();
 
-        try(Connection con = ds.getConnection();
-            Statement statement = con.createStatement();) {
-            String sql = "INSERT INTO " +
-                    "ciudad VALUES ('"+c.getNom()+"','"+c.getLat()+"','"+c.getLon()+"')";
-
-            int count = statement.executeUpdate(sql);
-            if(count==1)
-                return new Result.Success<>(c);
-            else
-                return new Result.Error(404,"No se ha podido añadir la ciudad");
-
-        } catch (SQLException throwables) {
-            return new Result.Error(404,throwables.getMessage());
-        }
-    }
 }
